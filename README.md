@@ -24,10 +24,11 @@ indexed for search, and available through the CLI, TUI, and MCP server.
 
 ## Install
 
-macOS:
+Homebrew on macOS:
 
 ```bash
 brew install codejunkie99/tap/brain
+brain onboard
 ```
 
 From source:
@@ -36,6 +37,7 @@ From source:
 git clone https://github.com/codejunkie99/brain.git
 cd brain
 cargo install --path crates/brain-cli
+brain onboard
 ```
 
 ## First run
