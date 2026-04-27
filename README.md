@@ -24,7 +24,7 @@ indexed for search, and available through the CLI, TUI, and MCP server.
 
 ## Install
 
-Homebrew on macOS:
+Homebrew on macOS installs the prebuilt binary:
 
 ```bash
 brew install codejunkie99/tap/brain

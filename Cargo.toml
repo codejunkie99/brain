@@ -40,7 +40,7 @@ insta = { version = "1", features = ["yaml", "json"] }
 proptest = "1"
 
 # Runtime-specific (pinned per the plan, versions verified against crates.io 2026-04-21)
-git2 = "0.20.4"
+git2 = { version = "0.20.4", features = ["vendored-openssl"] }
 rusqlite = { version = "0.39", features = ["bundled"] }
 rmcp = { version = "1.4", features = ["server", "macros", "transport-io"] }
 clap = { version = "4.6", features = ["derive", "env"] }
