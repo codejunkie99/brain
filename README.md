@@ -5,7 +5,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/codejunkie99/brain/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/codejunkie99/brain/actions/workflows/ci.yml/badge.svg"></a>
   <img alt="Rust" src="https://img.shields.io/badge/rust-1.85%2B-f97316?logo=rust&logoColor=white">
   <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue">
   <img alt="MCP" src="https://img.shields.io/badge/MCP-ready-6d5dfc">
