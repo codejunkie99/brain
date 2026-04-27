@@ -1,0 +1,21 @@
+[package]
+name = "brain-tui"
+description = "Full-screen TUI for brain"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+brain-app = { path = "../brain-app" }
+brain-types = { path = "../brain-types" }
+ratatui = "0.30"
+crossterm = "0.29"
+anyhow = { workspace = true }
+chrono = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

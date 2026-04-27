@@ -1,0 +1,21 @@
+[package]
+name = "brain-mcp"
+description = "MCP server (rmcp) exposing brain's memory to any MCP client"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+brain-types = { path = "../brain-types" }
+brain-app = { path = "../brain-app" }
+rmcp.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+schemars = "1"

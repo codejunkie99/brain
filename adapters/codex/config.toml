@@ -1,0 +1,13 @@
+# brain MCP server for OpenAI Codex CLI.
+#
+# Append this block to `~/.codex/config.toml` — or let onboarding do it:
+#
+#   brain onboard --agents codex --yes
+#
+# After installing, Codex's chat will have tools: `brain.note`,
+# `brain.log`, `brain.ask`, `brain.doctor`, `brain.ping`.
+
+[mcp_servers.brain]
+command = "brain"
+args = ["serve", "--mcp"]
+env = { BRAIN_DIR = "~/.brain" }

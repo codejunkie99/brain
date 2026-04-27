@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "brain": {
+      "command": "brain",
+      "args": ["serve", "--mcp"],
+      "env": {
+        "BRAIN_DIR": "${HOME}/.brain"
+      }
+    }
+  }
+}

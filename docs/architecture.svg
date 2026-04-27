@@ -1,0 +1,146 @@
+<svg width="1200" height="680" viewBox="0 0 1200 680" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">brain architecture</title>
+  <desc id="desc">AI coding harnesses connect through MCP, CLI, and TUI surfaces into the brain runtime, which writes to a git event log and a rebuildable SQLite FTS index.</desc>
+  <defs>
+    <linearGradient id="canvas" x1="0" y1="0" x2="1200" y2="680" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+    <linearGradient id="header" x1="60" y1="50" x2="1140" y2="158" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#111827"/>
+      <stop offset="0.55" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#312e81"/>
+    </linearGradient>
+    <linearGradient id="core" x1="552" y1="242" x2="784" y2="538" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="store" x1="848" y1="244" x2="1098" y2="356" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ecfeff"/>
+      <stop offset="1" stop-color="#cffafe"/>
+    </linearGradient>
+    <linearGradient id="index" x1="848" y1="400" x2="1098" y2="512" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f0fdf4"/>
+      <stop offset="1" stop-color="#dcfce7"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.10"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2 2L12 7L2 12" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      .sans { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      .h1 { font-size: 35px; font-weight: 850; letter-spacing: 0; }
+      .h2 { font-size: 19px; font-weight: 800; letter-spacing: 0; }
+      .body { font-size: 15px; font-weight: 500; letter-spacing: 0; }
+      .small { font-size: 13px; font-weight: 600; letter-spacing: 0; }
+      .tiny { font-size: 12px; font-weight: 650; letter-spacing: 0; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="680" rx="34" fill="url(#canvas)"/>
+  <rect x="24" y="24" width="1152" height="632" rx="28" stroke="#dbe3ef" stroke-width="1.5"/>
+
+  <g filter="url(#shadow)">
+    <rect x="60" y="48" width="1080" height="118" rx="24" fill="url(#header)"/>
+    <text x="96" y="96" class="sans h1" fill="#ffffff">brain</text>
+    <text x="96" y="128" class="sans body" fill="#cbd5e1">Git-backed long-term memory for AI coding agents</text>
+    <rect x="854" y="76" width="92" height="34" rx="17" fill="#dbeafe" fill-opacity="0.13" stroke="#93c5fd" stroke-opacity="0.42"/>
+    <text x="878" y="98" class="sans small" fill="#bfdbfe">MCP</text>
+    <rect x="960" y="76" width="76" height="34" rx="17" fill="#dcfce7" fill-opacity="0.12" stroke="#86efac" stroke-opacity="0.42"/>
+    <text x="984" y="98" class="sans small" fill="#bbf7d0">CLI</text>
+    <rect x="1050" y="76" width="58" height="34" rx="17" fill="#ede9fe" fill-opacity="0.13" stroke="#c4b5fd" stroke-opacity="0.44"/>
+    <text x="1070" y="98" class="sans small" fill="#ddd6fe">TUI</text>
+  </g>
+
+  <text x="76" y="214" class="sans tiny" fill="#64748b">HARNESS LAYER</text>
+  <text x="370" y="214" class="sans tiny" fill="#64748b">ACCESS SURFACES</text>
+  <text x="548" y="214" class="sans tiny" fill="#64748b">RUNTIME CORE</text>
+  <text x="858" y="214" class="sans tiny" fill="#64748b">DATA PLANE</text>
+
+  <g filter="url(#soft)">
+    <rect x="72" y="232" width="220" height="304" rx="22" fill="#ffffff" stroke="#e2e8f0"/>
+    <text x="102" y="270" class="sans h2" fill="#0f172a">AI coding tools</text>
+    <text x="102" y="298" class="sans body" fill="#64748b">one memory underneath</text>
+    <rect x="102" y="326" width="158" height="34" rx="17" fill="#f1f5f9"/>
+    <text x="124" y="348" class="sans small" fill="#334155">Claude Code</text>
+    <rect x="102" y="370" width="158" height="34" rx="17" fill="#f1f5f9"/>
+    <text x="124" y="392" class="sans small" fill="#334155">Cursor</text>
+    <rect x="102" y="414" width="158" height="34" rx="17" fill="#f1f5f9"/>
+    <text x="124" y="436" class="sans small" fill="#334155">Codex</text>
+    <rect x="102" y="458" width="158" height="34" rx="17" fill="#f1f5f9"/>
+    <text x="124" y="480" class="sans small" fill="#334155">OpenClaw</text>
+    <rect x="102" y="502" width="158" height="34" rx="17" fill="#f1f5f9"/>
+    <text x="124" y="524" class="sans small" fill="#334155">Hermes</text>
+  </g>
+
+  <g filter="url(#soft)">
+    <rect x="352" y="252" width="136" height="80" rx="18" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="386" y="286" class="sans h2" fill="#1d4ed8">MCP</text>
+    <text x="379" y="310" class="sans tiny" fill="#2563eb">tool calls</text>
+    <rect x="352" y="350" width="136" height="80" rx="18" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <text x="390" y="384" class="sans h2" fill="#15803d">CLI</text>
+    <text x="383" y="408" class="sans tiny" fill="#16a34a">shell usage</text>
+    <rect x="352" y="448" width="136" height="80" rx="18" fill="#faf5ff" stroke="#ddd6fe"/>
+    <text x="390" y="482" class="sans h2" fill="#7e22ce">TUI</text>
+    <text x="379" y="506" class="sans tiny" fill="#9333ea">dashboard</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="552" y="242" width="232" height="296" rx="28" fill="url(#core)"/>
+    <text x="588" y="286" class="sans h2" fill="#ffffff">brain-app</text>
+    <text x="588" y="314" class="sans body" fill="#dbeafe">orchestration layer</text>
+    <line x1="588" y1="340" x2="748" y2="340" stroke="#bfdbfe" stroke-opacity="0.36"/>
+    <text x="588" y="378" class="sans small" fill="#eef2ff">two-phase writes</text>
+    <text x="588" y="410" class="sans small" fill="#eef2ff">catch-up replay</text>
+    <text x="588" y="442" class="sans small" fill="#eef2ff">doctor + rebuild</text>
+    <text x="588" y="474" class="sans small" fill="#eef2ff">push / pull sync</text>
+    <rect x="588" y="500" width="128" height="30" rx="15" fill="#ffffff" fill-opacity="0.16"/>
+    <text x="612" y="520" class="mono tiny" fill="#ffffff">LocalBrain</text>
+  </g>
+
+  <g filter="url(#soft)">
+    <rect x="848" y="244" width="250" height="112" rx="22" fill="url(#store)" stroke="#a5f3fc"/>
+    <text x="884" y="286" class="sans h2" fill="#164e63">brain-store</text>
+    <text x="884" y="314" class="sans body" fill="#0e7490">git event log</text>
+    <text x="884" y="338" class="mono tiny" fill="#155e75">one commit per memory event</text>
+  </g>
+
+  <g filter="url(#soft)">
+    <rect x="848" y="400" width="250" height="112" rx="22" fill="url(#index)" stroke="#bbf7d0"/>
+    <text x="884" y="442" class="sans h2" fill="#14532d">brain-index</text>
+    <text x="884" y="470" class="sans body" fill="#15803d">SQLite FTS5 + BM25</text>
+    <text x="884" y="494" class="mono tiny" fill="#166534">derived, rebuildable cache</text>
+  </g>
+
+  <path d="M292 378C318 378 326 292 342 292" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M292 386C318 386 326 390 342 390" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M292 394C318 394 326 488 342 488" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M488 292C516 292 520 302 542 316" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M488 390H540" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M488 488C516 488 520 478 542 464" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M784 322C812 314 818 304 838 300" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M784 458C812 466 818 456 838 456" stroke="#64748b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <path d="M974 356V390" stroke="#64748b" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 8" marker-end="url(#arrow)"/>
+
+  <text x="804" y="280" class="sans tiny" fill="#64748b">commit first</text>
+  <text x="800" y="486" class="sans tiny" fill="#64748b">index second</text>
+  <text x="1000" y="383" class="sans tiny" fill="#64748b">replay</text>
+
+  <g filter="url(#soft)">
+    <rect x="72" y="574" width="1026" height="58" rx="20" fill="#0f172a"/>
+    <text x="104" y="608" class="sans h2" fill="#ffffff">Safety guarantees</text>
+    <text x="294" y="608" class="sans small" fill="#cbd5e1">secret prefilter</text>
+    <circle cx="422" cy="604" r="4" fill="#64748b"/>
+    <text x="442" y="608" class="sans small" fill="#cbd5e1">redaction rollback</text>
+    <circle cx="596" cy="604" r="4" fill="#64748b"/>
+    <text x="616" y="608" class="sans small" fill="#cbd5e1">detached HEAD rejected</text>
+    <circle cx="804" cy="604" r="4" fill="#64748b"/>
+    <text x="824" y="608" class="sans small" fill="#cbd5e1">owner-only files</text>
+  </g>
+</svg>
