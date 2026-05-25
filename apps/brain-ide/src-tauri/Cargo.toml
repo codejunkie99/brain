@@ -22,7 +22,7 @@ brain-store = { path = "../../../crates/brain-store" }
 brain-index = { path = "../../../crates/brain-index" }
 brain-orchestrator = { path = "../../../crates/brain-orchestrator" }
 
-tauri = { version = "2", features = ["macos-private-api"] }
+tauri = { version = "2", features = [] }
 tauri-plugin-shell = "2"
 tauri-plugin-fs = "2"
 tauri-plugin-dialog = "2"
@@ -51,3 +51,8 @@ dirs.workspace = true
 regex.workspace = true
 portable-pty.workspace = true
 once_cell.workspace = true
+base64 = "0.22"
+walkdir = "2"
+ignore = "0.4"
+eventsource-stream = "0.2"
+tokio-util = { version = "0.7", features = ["rt"] }

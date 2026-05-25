@@ -17,5 +17,5 @@ pub mod spec;
 
 pub use card::{Card, CardId, CardKind, CardStatus, Edge, EdgeKind};
 pub use graph::{FeatureGraph, GraphError};
-pub use scheduler::{Scheduler, SchedulerEvent, SchedulerHandle};
+pub use scheduler::{Scheduler, SchedulerConfig, SchedulerEvent, SchedulerHandle};
 pub use spec::{SpecBreakdown, SpecParser, SpecParserError};

@@ -10,3 +10,4 @@ target/
 
 # brain's own storage should never land in this repo
 .brain/
+apps/brain-ide/src-tauri/gen/
