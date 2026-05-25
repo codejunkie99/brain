@@ -1,0 +1,30 @@
+[package]
+name = "brain-orchestrator"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Task graph, dependency resolution, and scheduling for multi-agent coding workflows."
+
+[dependencies]
+brain-types = { path = "../brain-types" }
+brain-store = { path = "../brain-store" }
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+tracing.workspace = true
+petgraph.workspace = true
+parking_lot.workspace = true
+dashmap.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread", "macros", "sync", "time"] }
+async-trait.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread", "macros", "test-util"] }
