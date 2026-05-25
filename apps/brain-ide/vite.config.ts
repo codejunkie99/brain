@@ -40,5 +40,21 @@ export default defineConfig({
     sourcemap: !!process.env.TAURI_DEBUG,
     outDir: "dist",
     emptyOutDir: true,
+    // Push the heavy editor + highlighter + flow chunks into their
+    // own files. They're only needed when the corresponding panel
+    // mounts, and they cache cleanly across builds.
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (id.includes("monaco-editor")) return "monaco";
+          if (id.includes("shiki")) return "shiki";
+          if (id.includes("reactflow") || id.includes("/dagre/")) {
+            return "reactflow";
+          }
+          if (id.includes("xterm")) return "xterm";
+        },
+      },
+    },
+    chunkSizeWarningLimit: 4000,
   },
 });

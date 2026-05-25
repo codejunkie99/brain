@@ -1,17 +1,22 @@
-// Two-column file browser: tree on the left, file content on the right.
+// Two-column file browser: tree on the left, the Monaco editor on the
+// right with one tab per opened file.
 
 import { useEffect, useState } from "react";
 
 import * as bridge from "@/ipc/bridge";
 import type { TreeNode } from "@/ipc/types";
+import { useEditorStore } from "@/state/editor";
 
 import { Button } from "../common/Button";
+import { EditorTabs } from "../Editor/EditorTabs";
+import { MonacoPane } from "../Editor/MonacoPane";
 
 export function FileTree() {
   const [tree, setTree] = useState<TreeNode | null>(null);
-  const [active, setActive] = useState<{ path: string; content: string; truncated: boolean } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const activePath = useEditorStore((s) => s.activePath);
+  const openFile = useEditorStore((s) => s.openFile);
 
   async function refresh() {
     setLoading(true);
@@ -29,15 +34,6 @@ export function FileTree() {
   useEffect(() => {
     void refresh();
   }, []);
-
-  async function openFile(path: string) {
-    try {
-      const res = await bridge.readFile(path);
-      setActive({ path, content: res.content, truncated: res.truncated });
-    } catch (e) {
-      setError(String(e));
-    }
-  }
 
   return (
     <div style={{ flex: 1, display: "flex", minWidth: 0 }}>
@@ -60,7 +56,15 @@ export function FileTree() {
             borderBottom: "1px solid var(--line-0)",
           }}
         >
-          <span style={{ fontSize: 11, color: "var(--fg-3)", letterSpacing: 0.4, textTransform: "uppercase", flex: 1 }}>
+          <span
+            style={{
+              fontSize: 11,
+              color: "var(--fg-3)",
+              letterSpacing: 0.4,
+              textTransform: "uppercase",
+              flex: 1,
+            }}
+          >
             Project files
           </span>
           <Button size="sm" variant="ghost" onClick={() => void refresh()}>
@@ -74,63 +78,23 @@ export function FileTree() {
             <TreeBranch
               node={tree}
               depth={0}
-              onOpen={openFile}
-              activePath={active?.path ?? null}
+              onOpen={(p) => void openFile(p)}
+              activePath={activePath}
             />
           )}
         </div>
       </aside>
-      <section style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", background: "var(--bg-0)" }}>
-        {active ? (
-          <>
-            <header
-              style={{
-                padding: "8px 12px",
-                borderBottom: "1px solid var(--line-0)",
-                background: "var(--bg-1)",
-                fontSize: 12,
-                color: "var(--fg-1)",
-                display: "flex",
-                gap: 8,
-              }}
-            >
-              <span style={{ flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {active.path}
-              </span>
-              {active.truncated && (
-                <span style={{ color: "var(--yellow)" }}>truncated</span>
-              )}
-            </header>
-            <pre
-              style={{
-                flex: 1,
-                overflow: "auto",
-                padding: 12,
-                margin: 0,
-                fontFamily: "var(--font-mono)",
-                fontSize: 12,
-                lineHeight: 1.5,
-                userSelect: "text",
-                whiteSpace: "pre",
-              }}
-            >
-              {active.content}
-            </pre>
-          </>
-        ) : (
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "var(--fg-3)",
-              fontSize: 12,
-            }}
-          >
-            Pick a file to view it.
-          </div>
-        )}
+      <section
+        style={{
+          flex: 1,
+          minWidth: 0,
+          display: "flex",
+          flexDirection: "column",
+          background: "var(--bg-0)",
+        }}
+      >
+        <EditorTabs />
+        <MonacoPane />
       </section>
     </div>
   );

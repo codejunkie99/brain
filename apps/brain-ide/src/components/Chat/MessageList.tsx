@@ -7,6 +7,14 @@ import type { ChatMessage } from "@/ipc/types";
 import { useChatStore } from "@/state/chat";
 import { useTauriEvent } from "@/hooks/useTauriEvent";
 
+import { CodeBlock } from "./CodeBlock";
+
+const MARKDOWN_COMPONENTS = {
+  // ReactMarkdown passes a `code` slot for both inline `code` and fenced
+  // ``` blocks; CodeBlock dispatches on the presence of `language-*`.
+  code: CodeBlock,
+};
+
 export function MessageList() {
   const thread = useChatStore((s) =>
     s.threads.find((t) => t.id === s.activeThreadId),
@@ -118,7 +126,10 @@ function MessageBubble({ m }: { m: ChatMessage }) {
         {isUser ? (
           m.content
         ) : (
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            components={MARKDOWN_COMPONENTS}
+          >
             {m.content || "…"}
           </ReactMarkdown>
         )}
