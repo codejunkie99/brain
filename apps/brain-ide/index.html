@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b0d13" />
+    <title>Brain IDE</title>
+    <style>
+      /* Avoid the FOUC: paint the dark canvas immediately so the window
+         doesn't flash white before React hydrates. */
+      html,
+      body,
+      #root {
+        margin: 0;
+        height: 100%;
+        background: #0b0d13;
+        color: #e7ecf3;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
