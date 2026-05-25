@@ -12,7 +12,17 @@
 
 `brain` gives Claude Code, Cursor, Codex, OpenClaw, Hermes, and MCP-capable
 tools one shared local memory. Notes are stored as git commits in `~/.brain`,
-indexed for search, and available through the CLI, TUI, and MCP server.
+indexed for search, and available through the CLI, TUI, MCP server, and the
+native macOS IDE.
+
+The repo ships:
+
+- **`brain`** — CLI + TUI + MCP server (`crates/brain-*`)
+- **`brain-orchestrator`** — task graph + dependency resolver
+  (`crates/brain-orchestrator`)
+- **Brain IDE** — Tauri 2 desktop app that orchestrates Claude / Codex /
+  shell sessions over the brain memory layer (`apps/brain-ide`). See
+  [apps/brain-ide/README.md](apps/brain-ide/README.md) for details.
 
 <p align="center">
   <a href="https://x.com/Av1dlive">Follow @Av1dlive on X</a>
