@@ -20,8 +20,9 @@ import { useState } from "react";
 import { palette } from "@/theme/tokens";
 
 import { ChatPanel } from "../Chat/ChatPanel";
-import { GraphView } from "../Graph/GraphView";
 import { FileTree } from "../FileTree/FileTree";
+import { GitView } from "../Git/GitView";
+import { GraphView } from "../Graph/GraphView";
 import { MemoryLog } from "../Memory/MemoryLog";
 import { SettingsPanel } from "../Settings/SettingsPanel";
 import { TerminalTabs } from "../Terminal/TerminalTabs";
@@ -92,6 +93,7 @@ export function AppShell() {
           >
             {view === "graph" && <GraphView />}
             {view === "files" && <FileTree />}
+            {view === "git" && <GitView />}
             {view === "memory" && <MemoryLog />}
             {view === "settings" && <SettingsPanel />}
           </section>

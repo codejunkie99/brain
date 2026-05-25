@@ -8,6 +8,7 @@ use parking_lot::RwLock;
 use tauri::{AppHandle, Manager};
 
 use crate::agents::{AgentRegistry, ChatTranscript};
+use crate::mcp::McpHost;
 use crate::memory::MemoryClient;
 use crate::orchestrator::OrchestratorBridge;
 use crate::projects::ProjectStore;
@@ -22,6 +23,7 @@ pub struct AppState {
     pub transcripts: ChatTranscript,
     pub orchestrator: OrchestratorBridge,
     pub pty: PtyManager,
+    pub mcp: McpHost,
     pub data_dir: PathBuf,
 }
 
@@ -55,6 +57,14 @@ impl AppState {
 
         orchestrator.start(app.clone());
 
+        // The brain CLI is what runs `brain serve --mcp` for external
+        // agents. We accept None here and let the user override via
+        // settings; the McpHost falls back to plain `brain` on PATH.
+        let mcp = McpHost::new(None);
+        if let Some(path) = memory.current_path() {
+            mcp.set_brain_dir(path);
+        }
+
         Ok(Self {
             settings,
             projects,
@@ -63,6 +73,7 @@ impl AppState {
             transcripts: ChatTranscript::new(),
             orchestrator,
             pty: PtyManager::new(),
+            mcp,
             data_dir,
         })
     }

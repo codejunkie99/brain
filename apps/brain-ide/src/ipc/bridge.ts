@@ -7,12 +7,17 @@ import { invoke } from "@tauri-apps/api/core";
 import type {
   AgentDescriptor,
   Card,
+  CommitInfo,
   CredentialKind,
   CredentialStatus,
+  FileDiff,
   GraphSnapshot,
+  McpConfigSnippets,
+  McpStatus,
   MemoryEntry,
   Project,
   PtySessionInfo,
+  RepoStatus,
   Settings,
   SpecBreakdown,
   ChatThread,
@@ -181,3 +186,30 @@ export const credentialStatus = () =>
 
 export const openBrain = (path: string) =>
   invoke<string>("open_brain", { input: { path } });
+
+// ---------- Git ----------
+
+export const gitStatus = (root?: string) =>
+  invoke<RepoStatus>("git_status", { input: { root: root ?? null } });
+export const gitDiff = (path: string, staged = false, root?: string) =>
+  invoke<FileDiff>("git_diff", {
+    input: { path, staged, root: root ?? null },
+  });
+export const gitStage = (paths: string[], root?: string) =>
+  invoke<void>("git_stage", { input: { paths, root: root ?? null } });
+export const gitUnstage = (paths: string[], root?: string) =>
+  invoke<void>("git_unstage", { input: { paths, root: root ?? null } });
+export const gitCommit = (message: string, root?: string) =>
+  invoke<string>("git_commit", { input: { message, root: root ?? null } });
+export const gitLog = (limit = 50, root?: string) =>
+  invoke<CommitInfo[]>("git_log", { input: { limit, root: root ?? null } });
+export const gitCheckout = (branch: string, root?: string) =>
+  invoke<void>("git_checkout", { input: { branch, root: root ?? null } });
+
+// ---------- MCP ----------
+
+export const mcpStatus = () => invoke<McpStatus>("mcp_status");
+export const mcpStart = () => invoke<McpStatus>("mcp_start");
+export const mcpStop = () => invoke<void>("mcp_stop");
+export const mcpConfigSnippets = () =>
+  invoke<McpConfigSnippets>("mcp_config_snippets");

@@ -14,6 +14,8 @@
 pub mod agents;
 pub mod auth;
 pub mod commands;
+pub mod git;
+pub mod mcp;
 pub mod memory;
 pub mod orchestrator;
 pub mod projects;
@@ -92,6 +94,19 @@ pub fn run() {
             commands::misc::clear_credential,
             commands::misc::credential_status,
             commands::misc::open_brain,
+            // git
+            commands::git_cmds::git_status,
+            commands::git_cmds::git_diff,
+            commands::git_cmds::git_stage,
+            commands::git_cmds::git_unstage,
+            commands::git_cmds::git_commit,
+            commands::git_cmds::git_log,
+            commands::git_cmds::git_checkout,
+            // mcp
+            commands::mcp_cmds::mcp_status,
+            commands::mcp_cmds::mcp_start,
+            commands::mcp_cmds::mcp_stop,
+            commands::mcp_cmds::mcp_config_snippets,
         ])
         .run(tauri::generate_context!())
         .expect("error while running brain-ide");

@@ -242,3 +242,105 @@ export interface Settings {
   codex: CodexSettings;
   shell: ShellSettings;
 }
+
+// ----- Git -----
+
+export type StageKind =
+  | "none"
+  | "added"
+  | "modified"
+  | "deleted"
+  | "renamed"
+  | "typechange";
+
+export type WorkKind =
+  | "none"
+  | "modified"
+  | "deleted"
+  | "typechange"
+  | "renamed"
+  | "untracked"
+  | "ignored";
+
+export interface StatusEntry {
+  path: string;
+  stage: StageKind;
+  work: WorkKind;
+  conflict: boolean;
+}
+
+export interface HeadInfo {
+  branch: string | null;
+  detached: boolean;
+  commit: string;
+  ahead: number;
+  behind: number;
+  upstream: string | null;
+}
+
+export interface BranchInfo {
+  name: string;
+  is_head: boolean;
+  is_remote: boolean;
+}
+
+export interface RemoteInfo {
+  name: string;
+  url: string | null;
+}
+
+export interface RepoStatus {
+  root: string;
+  head: HeadInfo | null;
+  branches: BranchInfo[];
+  files: StatusEntry[];
+  remotes: RemoteInfo[];
+}
+
+export interface DiffLine {
+  kind: " " | "+" | "-" | "B";
+  content: string;
+  old_lineno: number | null;
+  new_lineno: number | null;
+}
+
+export interface DiffHunk {
+  old_start: number;
+  old_lines: number;
+  new_start: number;
+  new_lines: number;
+  header: string;
+  lines: DiffLine[];
+}
+
+export interface FileDiff {
+  path: string;
+  binary: boolean;
+  hunks: DiffHunk[];
+}
+
+export interface CommitInfo {
+  oid: string;
+  short_oid: string;
+  summary: string;
+  author: string;
+  email: string;
+  time: number;
+}
+
+// ----- MCP -----
+
+export interface McpStatus {
+  running: boolean;
+  pid: number | null;
+  brain_dir: string | null;
+  binary: string;
+}
+
+export interface McpConfigSnippets {
+  binary: string;
+  brain_dir: string;
+  claude_desktop: unknown;
+  cursor: unknown;
+  codex_toml: string;
+}

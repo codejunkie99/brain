@@ -99,4 +99,12 @@ export const Icon = {
       <path d="M3 3v5h5" />
     </svg>
   ),
+  Git: (p: IconProps) => (
+    <svg {...base(p)}>
+      <circle cx="6" cy="18" r="2.5" />
+      <circle cx="18" cy="6" r="2.5" />
+      <circle cx="18" cy="18" r="2.5" />
+      <path d="M6 16V8a2 2 0 0 1 2-2h8M18 8v8" />
+    </svg>
+  ),
 };

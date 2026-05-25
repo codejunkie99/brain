@@ -22,6 +22,8 @@ brain-store = { path = "../../../crates/brain-store" }
 brain-index = { path = "../../../crates/brain-index" }
 brain-orchestrator = { path = "../../../crates/brain-orchestrator" }
 
+git2 = { workspace = true }
+
 tauri = { version = "2", features = [] }
 tauri-plugin-shell = "2"
 tauri-plugin-fs = "2"

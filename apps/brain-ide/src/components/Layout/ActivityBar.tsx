@@ -1,6 +1,11 @@
 import { Icon } from "../common/Icon";
 
-export type WorkspaceView = "graph" | "files" | "memory" | "settings";
+export type WorkspaceView =
+  | "graph"
+  | "files"
+  | "git"
+  | "memory"
+  | "settings";
 
 interface Props {
   view: WorkspaceView;
@@ -14,6 +19,7 @@ interface Props {
 const ITEMS: { view: WorkspaceView; label: string; icon: typeof Icon.Graph }[] = [
   { view: "graph", label: "Feature graph", icon: Icon.Graph },
   { view: "files", label: "Files", icon: Icon.Files },
+  { view: "git", label: "Git", icon: Icon.Git },
   { view: "memory", label: "Memory log", icon: Icon.Memory },
   { view: "settings", label: "Settings", icon: Icon.Settings },
 ];

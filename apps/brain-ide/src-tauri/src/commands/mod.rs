@@ -16,7 +16,9 @@
 
 pub mod chat;
 pub mod fs;
+pub mod git_cmds;
 pub mod graph;
+pub mod mcp_cmds;
 pub mod memory_cmds;
 pub mod misc;
 pub mod pty_cmds;

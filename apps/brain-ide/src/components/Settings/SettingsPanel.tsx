@@ -3,9 +3,10 @@ import { useState } from "react";
 import { ApiKeysPanel } from "./ApiKeysPanel";
 import { GeneralPanel } from "./GeneralPanel";
 import { AgentsPanel } from "./AgentsPanel";
+import { McpPanel } from "./McpPanel";
 import { ProjectsPanel } from "./ProjectsPanel";
 
-type Tab = "general" | "agents" | "keys" | "projects";
+type Tab = "general" | "agents" | "keys" | "projects" | "mcp";
 
 export function SettingsPanel() {
   const [tab, setTab] = useState<Tab>("general");
@@ -29,6 +30,7 @@ export function SettingsPanel() {
             ["projects", "Projects"],
             ["agents", "Agents"],
             ["keys", "API keys"],
+            ["mcp", "MCP host"],
           ] as [Tab, string][]
         ).map(([key, label]) => (
           <button
@@ -52,6 +54,7 @@ export function SettingsPanel() {
         {tab === "projects" && <ProjectsPanel />}
         {tab === "agents" && <AgentsPanel />}
         {tab === "keys" && <ApiKeysPanel />}
+        {tab === "mcp" && <McpPanel />}
       </section>
     </div>
   );

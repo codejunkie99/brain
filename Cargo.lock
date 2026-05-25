@@ -306,6 +306,7 @@ dependencies = [
  "dirs 5.0.1",
  "eventsource-stream",
  "futures",
+ "git2",
  "ignore",
  "keyring",
  "once_cell",
