@@ -89,6 +89,37 @@ impl BrainRepo {
             )?;
         }
 
+        // Materialize the SCHEMA marker into the working tree and index, for
+        // the same reason `append_event_once` materializes its event: a commit
+        // that exists only in the object database shows up in `git status` as
+        // a staged DELETION of the file it just added. A brain created without
+        // this reports `D SCHEMA` from the very first command, before the user
+        // has written a single note.
+        //
+        // Best effort, like the append path. The bootstrap commit is already
+        // durable and every reader goes through git objects, so a failure here
+        // is cosmetic and must not fail `brain init`.
+        {
+            let schema_path = path.join("SCHEMA");
+            let contents = format!("schema_version={SCHEMA_VERSION}\n");
+            let synced = std::fs::write(&schema_path, contents.as_bytes())
+                .map_err(StoreError::from)
+                .and_then(|()| {
+                    let mut index = repo.index()?;
+                    index.add_path(Path::new("SCHEMA"))?;
+                    index.write()?;
+                    Ok(())
+                });
+            if let Err(e) = synced {
+                tracing::warn!(
+                    path = %path.display(),
+                    error = %e,
+                    "brain initialized but SCHEMA worktree/index sync failed; \
+                     `git status` may show a spurious staged deletion"
+                );
+            }
+        }
+
         debug!(path = %path.display(), "brain initialized");
         Ok(Self { path, repo })
     }
@@ -336,6 +367,45 @@ impl BrainRepo {
             &[&parent_commit],
         )?;
 
+        // Materialize the event in the working tree and the index, so HEAD,
+        // .git/index, and the working copy all agree.
+        //
+        // The commit above is authoritative and already durable. Brain reads
+        // exclusively from git objects (`event_from_commit`, `head_revwalk`),
+        // never from the filesystem, so nothing here affects whether the note
+        // is stored or findable.
+        //
+        // Without this, the blob exists in HEAD but not on disk and not in the
+        // index, so `git status` reports every freshly written note as:
+        //
+        //     D  events/<uuid>.json
+        //
+        // a *staged deletion*. Nothing is deleted; the file was simply never
+        // materialized. But that output reads as catastrophic data loss, and
+        // the natural reflex to "clean it up" (`git add -A`, `git commit -a`,
+        // `git stash`) commits a REAL deletion of every event from HEAD. Two
+        // such false alarms were reported before this was root-caused. Neither
+        // lost data. The reflex they invite would have.
+        //
+        // BEST EFFORT ON PURPOSE. A failure here is cosmetic only. The append
+        // has already succeeded, so we warn and return Ok rather than report a
+        // stored note as failed and invite the caller to retry a write that
+        // landed.
+        //
+        // NOTE: the commit tree is still built from `parent_commit.tree()`
+        // above, deliberately NOT from the index. That is what makes a stale
+        // index or a dirty worktree structurally unable to leak into a brain
+        // commit, and it is why no commit in a brain's history has ever
+        // contained a deletion. Do not "simplify" this to an index-based tree.
+        if let Err(e) = self.materialize_event(&filename, &json) {
+            tracing::warn!(
+                event_id = %event_id,
+                error = %e,
+                "event committed but working tree/index sync failed; `git status` \
+                 in the brain dir may show a spurious staged deletion for it"
+            );
+        }
+
         Ok(EventRef {
             event_id,
             state: EventState::Committed,
@@ -347,6 +417,30 @@ impl BrainRepo {
             reached_at: Utc::now(),
             was_idempotent_replay: false,
         })
+    }
+
+    /// Write a just-committed event's blob into the working tree and stage it.
+    /// See the call site in `append_event_once` for why this matters and why
+    /// its failure is non-fatal.
+    ///
+    /// The relative path is built with a literal `/` rather than `Path::join`
+    /// so the entry handed to libgit2 is always a forward-slash path, which is
+    /// what git index entries require on every platform including Windows.
+    fn materialize_event(&self, filename: &str, json: &[u8]) -> Result<(), StoreError> {
+        let rel = format!("events/{filename}");
+        let abs = self.path.join(&rel);
+
+        if let Some(parent) = abs.parent() {
+            std::fs::create_dir_all(parent)?;
+        }
+        std::fs::write(&abs, json)?;
+
+        let mut index = self.repo.index()?;
+        index.add_path(Path::new(&rel))?;
+        index.write()?;
+
+        debug!(path = %rel, "materialized event into worktree + index");
+        Ok(())
     }
 
     fn append_lock(&self) -> Result<AppendLock, StoreError> {

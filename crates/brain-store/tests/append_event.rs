@@ -606,3 +606,93 @@ fn append_rejects_invalid_draft_without_mutating_repo() {
         "rejected draft must not land a commit"
     );
 }
+
+/// REGRESSION: an append must leave the working tree and the index in sync
+/// with HEAD, so `git status` in a brain is clean.
+///
+/// Before the `materialize_event` fix, `append_event_once` wrote only to the
+/// git object database (blob -> treebuilder -> commit) and never touched the
+/// working tree or `.git/index`. The blob existed in HEAD but not on disk and
+/// not in the index, so git reported every freshly written note as:
+///
+///     D  events/<uuid>.json
+///
+/// a *staged deletion*. No data was ever lost by this (all reads go through
+/// git objects), but the output reads as catastrophic loss, and the reflex to
+/// clean it up (`git add -A`, `git commit -a`, `git stash`) commits a REAL
+/// deletion of every event from HEAD. Two such false alarms were reported in
+/// the field before it was root-caused.
+///
+/// This test fails on the pre-fix code at the `is_file()` assertion.
+#[test]
+fn append_leaves_worktree_and_index_clean() {
+    let td = TempDir::new().unwrap();
+    let path = td.path().join("brain");
+    let brain = BrainRepo::init(&path).unwrap();
+
+    let event_ref = brain
+        .append_event(sample_draft("test::worktree::clean", "materialized"))
+        .unwrap();
+
+    // 1. The event is actually on disk, not just in the object database.
+    let on_disk = path.join("events").join(format!("{}.json", event_ref.event_id));
+    assert!(
+        on_disk.is_file(),
+        "event was committed but never materialized at {}",
+        on_disk.display()
+    );
+
+    // 2. It is the real payload, not a placeholder.
+    let raw = std::fs::read_to_string(&on_disk).unwrap();
+    let parsed: serde_json::Value = serde_json::from_str(&raw).unwrap();
+    assert_eq!(
+        parsed["event_id"].as_str().unwrap(),
+        event_ref.event_id.to_string(),
+        "on-disk blob is not this event"
+    );
+
+    // 3. HEAD, index, and worktree all agree: `git status` is empty.
+    //    This is the assertion that would have caught the original defect as
+    //    a staged deletion (INDEX_DELETED) rather than a missing file.
+    let repo = git2::Repository::open(&path).unwrap();
+    let statuses = repo.statuses(None).unwrap();
+    let dirty: Vec<String> = statuses
+        .iter()
+        .map(|s| format!("{:?} {}", s.status(), s.path().unwrap_or("?")))
+        .collect();
+    assert!(
+        dirty.is_empty(),
+        "expected a clean working tree after append, got: {dirty:?}"
+    );
+}
+
+/// The same invariant must hold across repeated appends, not just the first.
+/// A per-append index write that clobbered earlier entries would pass the
+/// single-append test above and fail here.
+#[test]
+fn repeated_appends_keep_worktree_clean() {
+    let td = TempDir::new().unwrap();
+    let path = td.path().join("brain");
+    let brain = BrainRepo::init(&path).unwrap();
+
+    for i in 0..5 {
+        brain
+            .append_event(sample_draft(&format!("test::repeat::{i}"), "n"))
+            .unwrap();
+    }
+
+    let repo = git2::Repository::open(&path).unwrap();
+    let dirty: Vec<String> = repo
+        .statuses(None)
+        .unwrap()
+        .iter()
+        .map(|s| format!("{:?} {}", s.status(), s.path().unwrap_or("?")))
+        .collect();
+    assert!(
+        dirty.is_empty(),
+        "worktree dirty after 5 appends: {dirty:?}"
+    );
+
+    let events_dir = std::fs::read_dir(path.join("events")).unwrap().count();
+    assert_eq!(events_dir, 5, "all 5 events should be on disk");
+}
