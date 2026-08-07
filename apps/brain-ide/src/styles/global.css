@@ -1,0 +1,129 @@
+/* Brain IDE global styles. Theme tokens come from theme/themes.ts via
+   CSS custom properties on :root. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: var(--bg-0);
+  color: var(--fg-0);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Scrollbars — slim, dark, only show on hover. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 5px;
+}
+:hover::-webkit-scrollbar-thumb {
+  background: var(--line-2);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-soft);
+  color: var(--fg-0);
+}
+
+/* Tauri title-bar drag region — anything with this class can drag the window. */
+.titlebar-drag {
+  -webkit-app-region: drag;
+}
+.titlebar-drag button,
+.titlebar-drag input,
+.titlebar-drag select {
+  -webkit-app-region: no-drag;
+}
+
+/* Reset focus rings — show only for keyboard navigation. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-radius: 4px;
+}
+
+/* React Flow background defaults to white */
+.react-flow {
+  background: var(--bg-0);
+}
+.react-flow__node {
+  font-family: var(--font-ui);
+}
+.react-flow__edge-path {
+  stroke: var(--line-2);
+  stroke-width: 1.5;
+}
+.react-flow__edge.depends-on .react-flow__edge-path {
+  stroke: var(--line-2);
+}
+.react-flow__edge.discovered-by .react-flow__edge-path {
+  stroke: var(--accent-dim);
+  stroke-dasharray: 4 4;
+}
+.react-flow__attribution {
+  display: none;
+}
+
+/* xterm.js: pad and round corners. */
+.xterm-viewport,
+.xterm-screen {
+  border-radius: 6px;
+}
+
+/* Utility */
+.text-mono {
+  font-family: var(--font-mono);
+}
+.text-dim {
+  color: var(--fg-2);
+}
+.text-faint {
+  color: var(--fg-3);
+}

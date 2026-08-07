@@ -1,0 +1,25 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default capability set granted to the main IDE window.",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:event:default",
+    "core:window:allow-set-title",
+    "core:window:allow-set-theme",
+    "core:webview:default",
+    "core:menu:default",
+    "core:tray:default",
+    "core:path:default",
+    "shell:default",
+    "fs:default",
+    "fs:allow-read-text-file",
+    "fs:allow-write-text-file",
+    "dialog:default",
+    "store:default",
+    "os:default",
+    "process:default",
+    "clipboard-manager:default"
+  ]
+}

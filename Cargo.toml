@@ -8,6 +8,8 @@ members = [
     "crates/brain-mcp",
     "crates/brain-tui",
     "crates/brain-cli",
+    "crates/brain-orchestrator",
+    "apps/brain-ide/src-tauri",
 ]
 
 [workspace.package]
@@ -44,6 +46,17 @@ git2 = { version = "0.20.4", features = ["vendored-openssl"] }
 rusqlite = { version = "0.39", features = ["bundled"] }
 rmcp = { version = "1.4", features = ["server", "macros", "transport-io"] }
 clap = { version = "4.6", features = ["derive", "env"] }
+
+# Orchestrator / IDE
+petgraph = "0.6"
+portable-pty = "0.9"
+reqwest = { version = "0.12", default-features = false, features = ["json", "stream", "rustls-tls"] }
+futures = "0.3"
+tokio-stream = "0.1"
+dashmap = "6"
+parking_lot = "0.12"
+keyring = "3"
+dirs = "5"
 
 [profile.release]
 lto = "thin"
